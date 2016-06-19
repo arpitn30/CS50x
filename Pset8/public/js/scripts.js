@@ -72,35 +72,62 @@ $(function() {
 /**
  * Adds marker for place to map.
  */
-function addMarker(place)
-{
-    // TODO
-    var Latlng = new google.maps.LatLng(parseFloat(place.latitude), parseFloat(place.longitude));
-    
-    var image = 'http://maps.google.com/mapfiles/ms/micons/red-pushpin.png';
-    var marker = new MarkerWithLabel({
-    position: Latlng,
-    labelContent: place.place_name + ", " + place.admin_name1,
-    labelAnchor: google.maps.Point(10, 29),
-    labelClass:"label label-warning", 
-    map: map,
-    icon: image
-    });
-    
-    google.maps.event.addListener(marker, "click", function() { $.getJSON("articles.php", {geo: place.postal_code})
-    	
-    	.done(function(data, textStatus, jqXHR) 
-		{
-			showInfo(marker, data);
-		})
-		.fail(function()
-		{
-			showInfo(marker, "No News");
-		});
-    });
-    
-    markers.push(marker);
-}
+ function addMarker(place)
+ {
+     // create marker object
+     var marker = new MarkerWithLabel({
+ 	icon: "http://maps.google.com/mapfiles/ms/micons/red-pushpin.png",	
+ 	position: new google.maps.LatLng(place.latitude, place.longitude),
+ 	map: map,
+ 	labelContent: place.place_name + ", " + place.admin_name1
+ 		      + ", " + place.postal_code,
+ 	labelAnchor: new google.maps.Point(10, 29),
+ 	labelClass: "label label-warning"
+     });
+
+     // add event listener
+     google.maps.event.addListener(marker, "click", function() {
+ 	showInfo(marker);
+ 	$.getJSON("articles.php", {
+ 	    geo: place.postal_code
+ 	})
+ 	.done(function(data, textStatus, jqXHR)
+ 	{
+ 	    // if there is no news, tell user no news
+ 	    if (data.length === 0)
+ 	    {
+ 		showInfo(marker, "No News.");
+ 	    }
+ 	    // else if there is news, displays news in unordered list
+ 	    else
+ 	    {
+ 		// start unordered list
+ 		var ul = "<ul>";
+
+ 		// create template
+ 		var template = _.template("<li><a href = '<%- link %>' target = '_blank'><%- title %></a></li>");
+
+ 		// use template to insert content
+ 		for (var i = 0, n = data.length; i < n; i++)
+ 		{
+ 		    ul += template({
+ 			link: data[i].link,
+ 			title: data[i].title
+ 		    });
+ 		}
+
+ 		// end unordered list
+ 		ul += "</ul>";
+
+ 		// show news
+ 		showInfo(marker, ul);
+ 	    }
+ 	});
+     });
+
+     // add marker to global variable markers
+     markers.push(marker);
+ }
 
 /**
  * Configures application.
@@ -159,8 +186,8 @@ function configure()
     // re-enable ctrl- and right-clicking (and thus Inspect Element) on Google Map
     // https://chrome.google.com/webstore/detail/allow-right-click/hompjdfbfmmmgflfjdlnkohcplmboaeo?hl=en
     document.addEventListener("contextmenu", function(event) {
-        event.returnValue = true; 
-        event.stopPropagation && event.stopPropagation(); 
+        event.returnValue = true;
+        event.stopPropagation && event.stopPropagation();
         event.cancelBubble && event.cancelBubble();
     }, true);
 
@@ -244,7 +271,7 @@ function showInfo(marker, content)
 /**
  * Updates UI's markers.
  */
-function update() 
+function update()
 {
     // get map's bounds
     var bounds = map.getBounds();
