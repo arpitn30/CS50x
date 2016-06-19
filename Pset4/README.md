@@ -7,4 +7,4 @@ Implement now in resize.c a program called resize that resizes 24-bit uncompress
 <pre><code>./resize n infile outfile</code></pre>
 
 ##RECOVER##
-I spent the past several days snapping photos of people I know, all of which were saved by my digital camera as JPEGs on a 1GB CompactFlash (CF) card. Unfortunately, I’m not very good with computers, and I somehow deleted them all! Thankfully, in the computer world, "deleted" tends not to mean "deleted" so much as "forgotten." My computer insists that the CF card is now blank, but I’m pretty sure it’s lying to me. Write a program that recovers these photos.
+I spent the past several days snapping photos of people I know, all of which were saved by my digital camera as JPEGs on a 1GB CompactFlash (CF) card. Unfortunately, I’m not very good with computers, and I somehow deleted them all! Thankfully, in the computer world, "deleted" tends not to mean "deleted" so much as "forgotten." My computer insists that the CF card is now blank, but I’m pretty sure it’s lying to me. Write a program that recovers these photos from the raw image of the CF Card.
