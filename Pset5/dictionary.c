@@ -31,7 +31,6 @@ node* Root = NULL;
  */
 bool check(const char* word)
 {
-    // TODO
 
     node* Next = Root;
     char ch = 0;
@@ -129,7 +128,6 @@ bool load(const char* dictionary)
  */
 unsigned int size(void)
 {
-    // TODO
     return dictSize;
 }
 
@@ -147,7 +145,6 @@ void del(node* Next)
 }
 bool unload(void)
 {
-    // TODO
     del(Root);
     return true;
 }
