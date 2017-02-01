@@ -1,0 +1,21 @@
+0.  Pneumonoultramicroscopicsilicovolcanoconiosis is an English word that refers to a lung disease otherwise known as silicosis. It is known to be the longest word in the English language published in a dictionary.
+
+1.  getrusage() returns the resource usage statistics for the calling process or for all children of the calling process or for the calling thread.
+
+2.  There are 16 members in a variable of type struct rusage.
+
+3.  Since Before and After are variables of struct rusage, passing them by value would require the compiler to copy values of all 16 members in rusage. So to save memory and time, we use Before and After by reference.
+
+4.  The for loop in main() reads each character in fp(the text file handler), if the character is an alphabet it adds it to the word, if it's a digit or the word is longer than LENGTH, it ignores the word, else it checks the word and prepares to start to add in another word.
+
+5.  By using fscanf(), we won't be able to detect digits or special characters in a word like we can do through fgetc().
+
+6.  We declared the parameters for check and load as const so that we won't accidentally make changes in word or the dictionary.
+
+7.  I used a Trie to implement speller. First after opening the dictionary file, I stored the given word in array, Then I read each character in the array and added a node in the Trie for the corresponding character if it wasn't already present. At the end of the word, I read a new word into the array from the file and started inserting it again into the trie from the root node.
+
+8.  My code took about 0.5 sec when I first executed it.
+
+9.  To improve my code's performance and save time, I freed up resources and reimplemented the loop and condition statements. Moreover, I stored the word in an array first so that it doesn't have to read each character from the file again and again. Instead of iterating over the dictionary again to check the number of words, I modified my Load function.
+
+10. Yes, my code has very few error checking statements.
