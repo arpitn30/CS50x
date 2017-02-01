@@ -13,7 +13,7 @@
 typedef uint8_t  BYTE;
 int main(int argc, char* argv[])
 {
-    FILE* file = fopen("card.raw", "r");
+    FILE* file = fopen("card.raw", "rb");
     if (file == NULL)
     {
         printf("Could not open card.raw.\n");
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
             if(cntr > 0)
                 fclose(outptr);
             (cntr < 10)?sprintf(fname, "00%d.jpg",cntr):(cntr < 100)?sprintf(fname, "0%d.jpg",cntr):sprintf(fname, "%d.jpg",cntr);
-            outptr = fopen(fname, "a");
+            outptr = fopen(fname, "ab");
             cntr++;
         }
         if(cntr > 0)
